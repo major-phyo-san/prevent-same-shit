@@ -4,6 +4,8 @@ namespace MajorPhyoSan\PreventSameShit\Traits;
 
 use Exception;
 
+use Illuminate\Support\Facades\Config;
+
 trait HasRowHash
 {
     public static function bootHasRowHash()
@@ -63,6 +65,6 @@ trait HasRowHash
         $payload = json_encode($data);
 
         // 4. Generate HMAC using SHA-256
-        return hash_hmac('sha256', $payload, config('app.key'));
+        return hash_hmac('sha256', $payload, Config::get('app.key'));
     }
 }

@@ -25,7 +25,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "MajorPhyoSan\\PreventSameShit\\PreventSameShitServieProvider"
+                "MajorPhyoSan\\PreventSameShit\\PreventSameShitServiceProvider"
             ]
         }
     }
