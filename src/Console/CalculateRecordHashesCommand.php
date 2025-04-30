@@ -13,7 +13,7 @@ class CalculateRecordHashesCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:calculate-record-hashes-command {modelclass} {excludes?} {hashcolumn?}';
+    protected $signature = 'prevent-same-shit:calculate-record-hashes-command {modelclass} {excludes?} {hashcolumn?}';
 
     /**
      * The console command description.
