@@ -24,14 +24,13 @@ class CalculateRecordHashes
     {
         // Resolve model via morph map if available
         $modelClass = Relation::getMorphedModel($this->modelClass) ?? $this->modelClass;
-        if(!$modelClass){
-            throw new Exception("No morph map or specified model not found, terminating\n");
-            return false;
-        }
         $hashColumn = $this->hashColumn;
 
-        $model = new $modelClass;
+        if (!class_exists($modelClass) || !is_subclass_of($modelClass, \Illuminate\Database\Eloquent\Model::class)) {
+            throw new \Exception("Invalid model class: {$modelClass}, terminating\n");
+        }
         
+        $model = new $modelClass;        
         $table = $model->getTable();
         $columns = Schema::getColumnListing($table);
         if(!in_array($this->hashColumn, $columns)){
