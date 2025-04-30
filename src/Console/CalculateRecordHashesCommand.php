@@ -4,7 +4,7 @@ namespace MajorPhyoSan\PreventSameShit\Console;
 
 use Illuminate\Console\Command;
 
-use MajorPhyoSan\PreventSameShit\CalculateRecordHashes;
+use MajorPhyoSan\PreventSameShit\Maintenance\CalculateRecordHashes;
 
 class CalculateRecordHashesCommand extends Command
 {

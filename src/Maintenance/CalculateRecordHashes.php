@@ -1,6 +1,6 @@
 <?php
 
-namespace MajorPhyoSan\PreventSameShit;
+namespace MajorPhyoSan\PreventSameShit\Maintenance;
 
 use Exception;
 
