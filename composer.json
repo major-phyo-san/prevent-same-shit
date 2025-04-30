@@ -3,7 +3,7 @@
     "description": "\"Prevent duplicate database records by calculating SHA256 hash for each database entry\"",
     "type": "library",
     "license": "MIT",
-    "version": "0.0.3",
+    "version": "0.0.6",
     "autoload": {
         "psr-4": {
             "MajorPhyoSan\\PreventSameShit\\": "src/"
