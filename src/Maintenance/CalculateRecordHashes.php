@@ -27,10 +27,15 @@ class CalculateRecordHashes
         $hashColumn = $this->hashColumn;
 
         $model = new $modelClass;
+        if(!$model){
+            throw new Exception("No morph map or specified model not found, terminating\n");
+            return false;
+        }
         $table = $model->getTable();
         $columns = Schema::getColumnListing($table);
         if(!in_array($this->hashColumn, $columns)){
-            echo("Specified hashed column not found, terminating\n");
+            // echo("Specified hashed column not found, terminating\n");
+            throw new Exception("Specified hashed column not found, terminating\n");
             return false;
         }
 

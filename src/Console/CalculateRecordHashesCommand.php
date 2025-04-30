@@ -2,6 +2,8 @@
 
 namespace MajorPhyoSan\PreventSameShit\Console;
 
+use Exception;
+
 use Illuminate\Console\Command;
 
 use MajorPhyoSan\PreventSameShit\Maintenance\CalculateRecordHashes;
@@ -36,7 +38,11 @@ class CalculateRecordHashesCommand extends Command
             $excludeColumns = explode(',',$excludes);
         }
         echo("Row hash calculation started \n");
-        (new CalculateRecordHashes($modelClass, $hashColumn))->execute($excludeColumns);
-        echo("Row hash calculation finished \n");
+        try{
+            (new CalculateRecordHashes($modelClass, $hashColumn))->execute($excludeColumns);
+            echo("Row hash calculation finished \n");
+        }catch(Exception $e){
+            echo($e->getMessage());
+        }        
     }
 }
