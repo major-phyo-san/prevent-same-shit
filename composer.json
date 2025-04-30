@@ -1,0 +1,32 @@
+{
+    "name": "major-phyo-san/prevent-same-shit",
+    "description": "\"Prevent duplicate database records by calculating SHA256 hash for each database entry\"",
+    "type": "library",
+    "license": "MIT",
+    "version": "0.0.1",
+    "autoload": {
+        "psr-4": {
+            "MajorPhyoSan\\PreventSameShit\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Phyo Kyaw San",
+            "email": "phyojupiter9@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "illuminate/database": "^10.0",
+        "illuminate/support": "^10.0",
+        "illuminate/console": "^10.0",
+        "illuminate/config": "^10.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MajorPhyoSan\\PreventSameShit\\PreventSameShitServieProvider"
+            ]
+        }
+    }
+}
