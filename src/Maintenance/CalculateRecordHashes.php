@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Schema;
 
 class CalculateRecordHashes
 {
@@ -24,6 +25,14 @@ class CalculateRecordHashes
         // Resolve model via morph map if available
         $modelClass = Relation::getMorphedModel($this->modelClass) ?? $this->modelClass;
         $hashColumn = $this->hashColumn;
+
+        $model = new $modelClass;
+        $table = $model->getTable();
+        $columns = Schema::getColumnListing($table);
+        if(!in_array($this->hashColumn, $columns)){
+            echo("Specified hashed column not found, terminating\n");
+            return false;
+        }
 
         $excludedFromHash = ['id',$hashColumn,'created_at','updated_at'];
         foreach ($exclude as $column) {
