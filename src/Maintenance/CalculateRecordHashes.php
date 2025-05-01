@@ -27,15 +27,16 @@ class CalculateRecordHashes
         $hashColumn = $this->hashColumn;
 
         if (!class_exists($modelClass) || !is_subclass_of($modelClass, \Illuminate\Database\Eloquent\Model::class)) {
-            throw new \Exception("Invalid model class: {$modelClass}, terminating\n");
+            Log::error("Prevent Same Shit: Invalid model class => {$modelClass} or enforce morph map not implemented, terminating");
+            throw new Exception("Invalid model class => {$modelClass} or enforce morph map not implemented, terminating");
         }
         
         $model = new $modelClass;        
         $table = $model->getTable();
         $columns = Schema::getColumnListing($table);
         if(!in_array($this->hashColumn, $columns)){
-            // echo("Specified hashed column not found, terminating\n");
-            throw new Exception("Specified hashed column not found, terminating\n");
+            Log::error("Prevent Same Shit: Specified hashed column not found, terminating");
+            throw new Exception("Specified hashed column not found, terminating");
             return false;
         }
 
@@ -44,8 +45,9 @@ class CalculateRecordHashes
             array_push($excludedFromHash, $column);
         }
 
-        echo("Excluded columns\n");
+        echo("ℹ️ Prevent Same Shit: Excluded columns\n");
         print_r($excludedFromHash);
+        Log::info("Prevent Same Shit: Excluded columns", $excludedFromHash);
 
         $modelClass::chunk(100, function ($models) use ($hashColumn, $excludedFromHash) {
             foreach ($models as $model) {
@@ -63,12 +65,14 @@ class CalculateRecordHashes
                         $model->setAttribute($hashColumn, $hmac);
                         $model->saveQuietly();
                     }
+                    echo("✅ Prevent Same Shit: Row at id {$model->id} OK\n");
+                    Log::info("Prevent Same Shit: Row at id {$model->id} OK");
                 }catch(Exception $e){
-                    echo("Duplicate row detected at id: {$model->id}\n");
-                    Log::warning($e->getMessage(), ["model" => $model]);
+                    Log::warning("Prevent Same Shit: Duplicate row detected at id: {$model->id}");
+                    echo("⚠️ Prevent Same Shit: Duplicate row detected at id: {$model->id}\n");
                     $model->delete();
-                    echo("Duplicate row deleted\n");
-                    Log::info('Duplicate row deleted');
+                    echo("ℹ️ Prevent Same Shit: Duplicate row deleted\n");
+                    Log::info('Prevent Same Shit: Duplicate row deleted');
                 }
             }
         });

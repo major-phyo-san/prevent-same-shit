@@ -37,12 +37,14 @@ class CalculateRecordHashesCommand extends Command
         if($excludes){
             $excludeColumns = explode(',',$excludes);
         }
-        echo("Row hash calculation started \n");
+
+        // ℹ️, ✅, ⚠️, ❌
+        $this->line("ℹ️ Prevent Same Shit: Row hash calculation started for model: {$modelClass}");
         try{
             (new CalculateRecordHashes($modelClass, $hashColumn))->execute($excludeColumns);
-            echo("Row hash calculation finished \n");
+            $this->line("✅ Prevent Same Shit: Row hash calculation finished");
         }catch(Exception $e){
-            echo($e->getMessage());
-        }        
+            $this->error("❌ Prevent Same Shit: {$e->getMessage()}");
+        }
     }
 }

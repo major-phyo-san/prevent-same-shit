@@ -5,6 +5,7 @@ namespace MajorPhyoSan\PreventSameShit;
 use Illuminate\Support\ServiceProvider;
 
 use MajorPhyoSan\PreventSameShit\Console\CalculateRecordHashesCommand;
+use MajorPhyoSan\PreventSameShit\Console\GenerateHashColumnMigrations;
 
 class PreventSameShitServiceProvider extends ServiceProvider
 {
@@ -13,6 +14,7 @@ class PreventSameShitServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 CalculateRecordHashesCommand::class,
+                GenerateHashColumnMigrations::class,
             ]);
         }
     }
