@@ -6,16 +6,16 @@ use Exception;
 
 use Illuminate\Console\Command;
 
-use MajorPhyoSan\PreventSameShit\Maintenance\CalculateRecordHashes;
+use MajorPhyoSan\PreventSameShit\Action\HashRecords;
 
-class CalculateRecordHashesCommand extends Command
+class CalculateRecordHashes extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'prevent-same-shit:calculate-record-hashes-command {modelclass} {excludes?} {hashcolumn?}';
+    protected $signature = 'prevent-same-shit:calculate-record-hashes {modelclass} {hashcolumn?} {excludes?}';
 
     /**
      * The console command description.
@@ -31,8 +31,9 @@ class CalculateRecordHashesCommand extends Command
     {
         //
         $modelClass = $this->argument('modelclass');
-        $excludes = $this->argument('excludes');
         $hashColumn = ($this->argument('hashcolumn'))?? 'record_hash';
+        $excludes = $this->argument('excludes');
+        
         $excludeColumns = [];
         if($excludes){
             $excludeColumns = explode(',',$excludes);
@@ -41,7 +42,7 @@ class CalculateRecordHashesCommand extends Command
         // ℹ️, ✅, ⚠️, ❌
         $this->line("ℹ️ Prevent Same Shit: Row hash calculation started for model: {$modelClass}");
         try{
-            (new CalculateRecordHashes($modelClass, $hashColumn))->execute($excludeColumns);
+            (new HashRecords($modelClass, $hashColumn))->execute($excludeColumns);
             $this->line("✅ Prevent Same Shit: Row hash calculation finished");
         }catch(Exception $e){
             $this->error("❌ Prevent Same Shit: {$e->getMessage()}");

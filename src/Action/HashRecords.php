@@ -1,6 +1,6 @@
 <?php
 
-namespace MajorPhyoSan\PreventSameShit\Maintenance;
+namespace MajorPhyoSan\PreventSameShit\Action;
 
 use Exception;
 
@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 
-class CalculateRecordHashes
+class HashRecords
 {
     protected string $modelClass;
     protected string $hashColumn;

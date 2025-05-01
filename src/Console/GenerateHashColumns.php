@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 
-class GenerateHashColumnMigrationsCommand extends Command
+class GenerateHashColumns extends Command
 {
     protected $signature = 'prevent-same-shit:generate-hash-columns {column=record_hash}';
 
