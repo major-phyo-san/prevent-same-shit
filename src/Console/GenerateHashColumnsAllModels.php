@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 
-class GenerateHashColumns extends Command
+class GenerateHashColumnsAllModels extends Command
 {
-    protected $signature = 'prevent-same-shit:generate-hash-columns {column=record_hash}';
+    protected $signature = 'prevent-same-shit:generate-hash-columns-all-models {column=record_hash}';
 
-    protected $description = 'Auto-generate migrations to add a column to models if not present';
+    protected $description = 'Auto-generate migrations to add a hash column to all models if not present';
 
     // ℹ️, ✅, ⚠️, ❌
     public function handle()

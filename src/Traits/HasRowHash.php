@@ -47,14 +47,26 @@ trait HasRowHash
             : [];
     }
 
+    public function getIncludedHashColumns(): array
+    {
+        return property_exists($this, 'includedInHash')
+            ? $this->includedInHash
+            : [];
+    }
+
     /**
      * Generate the row hash using model attributes.
      */
-    public function generateRowHash(array $exclude = []): string
+    public function generateRowHash(array $include = [], array $exclude = []): string
     {
         // 1. Get model attributes and exclude columns
         $data = $this->attributesToArray();
         unset($data['id'], $data['record_hash'], $data['created_at'], $data['updated_at']);
+
+        if (!empty($include)) {
+            $data = array_intersect_key($data, array_flip($include));
+        }
+
         foreach ($exclude as $column) {
             unset($data[$column]);
         }

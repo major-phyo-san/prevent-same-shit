@@ -5,7 +5,9 @@ namespace MajorPhyoSan\PreventSameShit;
 use Illuminate\Support\ServiceProvider;
 
 use MajorPhyoSan\PreventSameShit\Console\CalculateRecordHashes;
-use MajorPhyoSan\PreventSameShit\Console\GenerateHashColumns;
+use MajorPhyoSan\PreventSameShit\Console\CalculateRecordHashesAllModels;
+use MajorPhyoSan\PreventSameShit\Console\GenerateHashColumn;
+use MajorPhyoSan\PreventSameShit\Console\GenerateHashColumnsAllModels;
 
 class PreventSameShitServiceProvider extends ServiceProvider
 {
@@ -14,7 +16,9 @@ class PreventSameShitServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 CalculateRecordHashes::class,
-                GenerateHashColumns::class,
+                CalculateRecordHashesAllModels::class,
+                GenerateHashColumn::class,
+                GenerateHashColumnsAllModels::class,
             ]);
         }
     }
