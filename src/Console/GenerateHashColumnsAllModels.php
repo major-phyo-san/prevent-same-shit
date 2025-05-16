@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 
 class GenerateHashColumnsAllModels extends Command
 {
-    protected $signature = 'prevent-same-shit:generate-hash-columns-all-models {column=record_hash}';
+    protected $signature = 'prevent-same-shit:generate-hash-columns {column=record_hash}';
 
     protected $description = 'Auto-generate migrations to add a hash column to all models if not present';
 

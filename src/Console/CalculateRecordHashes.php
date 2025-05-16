@@ -15,7 +15,7 @@ class CalculateRecordHashes extends Command
      *
      * @var string
      */
-    protected $signature = 'prevent-same-shit:calculate-record-hashes {modelclass} {includes?} {excludes?} {hashcolumn?}';
+    protected $signature = 'prevent-same-shit:generate-hashes {modelclass} {includes?} {excludes?} {hashcolumn?}';
 
     /**
      * The console command description.
