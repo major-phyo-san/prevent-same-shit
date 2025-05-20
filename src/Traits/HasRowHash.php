@@ -11,18 +11,18 @@ trait HasRowHash
     public static function bootHasRowHash()
     {
         static::creating(function ($model) {
-            $hashColumnName = $this->getHashColumnName();
-            $model[$hashColumnName] = $model->generateRowHash($model->getIncludedHashColumns(), $model->getExcludedHashColumns());
+            $hashColumnName = $model->getHashColumnName();                 
+            $model[$hashColumnName] = $model->generateRowHash($model->getIncludedHashColumns(), $model->getExcludedHashColumns(), $hashColumnName);
 
             // Optional: Prevent inserting duplicate hash
-            if (self::where('record_hash', $model[$hashColumnName])->exists()) {
+            if (self::where($hashColumnName, $model[$hashColumnName])->exists()) {
                 throw new Exception('Duplicate detected by row hash on create.');
             }
         });
 
         static::updating(function ($model) {
-            $hashColumnName = $this->getHashColumnName();
-            $newHash = $model->generateRowHash($model->getExcludedHashColumns());
+            $hashColumnName = $model->getHashColumnName();
+            $newHash = $model->generateRowHash($model->getIncludedHashColumns(), $model->getExcludedHashColumns(), $hashColumnName);
 
             // Skip if hash remains the same
             if ($model[$hashColumnName] === $newHash) {
@@ -31,7 +31,7 @@ trait HasRowHash
 
             // Optional: prevent saving duplicate hash from other records
             if (
-                self::where('record_hash', $newHash)
+                self::where($hashColumnName, $newHash)
                     ->where('id', '!=', $model->id)
                     ->exists()
             ) {
@@ -66,11 +66,11 @@ trait HasRowHash
     /**
      * Generate the row hash using model attributes.
      */
-    public function generateRowHash(array $include = [], array $exclude = []): string
+    public function generateRowHash(array $include = [], array $exclude = [], $hashColumnName): string
     {
         // 1. Get model attributes and exclude columns
         $data = $this->attributesToArray();
-        unset($data['id'], $data['record_hash'], $data['created_at'], $data['updated_at']);
+        unset($data['id'], $data[$hashColumnName], $data['created_at'], $data['updated_at']);
 
         if (!empty($include)) {
             $data = array_intersect_key($data, array_flip($include));

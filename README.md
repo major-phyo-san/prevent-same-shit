@@ -11,7 +11,7 @@
 ---
 
 ## What It Does
-This package generates ``'record_hash'`` (or if you prefer, your custom ``hash column name``) database columns for Eloquent models. The ``'record_hash'`` column stores SHA256 hash for each database entry of a specific models.
+This package generates ``'record_hash'`` (or if you prefer, your custom ``hash_column_name``) database columns for Eloquent models. The ``'record_hash'`` column stores SHA256 hash for each database entry of a specific models. When there's a new record entry, the package will calculate the hash value of the new record, checking it against the existing hash values and if any duplication exists, prevent the entry of the new record.
 
 ## Installation
 
@@ -27,7 +27,7 @@ php artisan vendor:publish --provider="MajorPhyoSan\\PreventSameShit\\PreventSam
 ```
 
 ## Usage
-The ``HasRowHash`` trait will handle record hashing automatically. All you need to do is to use the traint in your Eloquent model. The model using the trait must have the property ``'record_hash'`` [string, nullable] (or your custom hash column name, just don't forget to provide your custom hash column name in the model) column.
+The ``HasRowHash`` trait will handle record hashing and checking if duplicated record exists based on the hash value automatically. All you need to do is to use the trait in your Eloquent model. The model using the trait must have the ``'record_hash'`` [string, nullable] (or your custom hash column name, just don't forget to provide your custom hash column name in the model) column.
 
 ### Example
 
