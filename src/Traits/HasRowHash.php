@@ -11,19 +11,21 @@ trait HasRowHash
     public static function bootHasRowHash()
     {
         static::creating(function ($model) {
-            $model->record_hash = $model->generateRowHash($model->getExcludedHashColumns());
+            $hashColumnName = $this->getHashColumnName();
+            $model[$hashColumnName] = $model->generateRowHash($model->getIncludedHashColumns(), $model->getExcludedHashColumns());
 
             // Optional: Prevent inserting duplicate hash
-            if (self::where('record_hash', $model->record_hash)->exists()) {
+            if (self::where('record_hash', $model[$hashColumnName])->exists()) {
                 throw new Exception('Duplicate detected by row hash on create.');
             }
         });
 
         static::updating(function ($model) {
+            $hashColumnName = $this->getHashColumnName();
             $newHash = $model->generateRowHash($model->getExcludedHashColumns());
 
             // Skip if hash remains the same
-            if ($model->record_hash === $newHash) {
+            if ($model[$hashColumnName] === $newHash) {
                 return;
             }
 
@@ -36,8 +38,15 @@ trait HasRowHash
                 throw new Exception('Duplicate detected by row hash on update.');
             }
 
-            $model->record_hash = $newHash;
+            $model[$hashColumnName] = $newHash;
         });
+    }
+
+    public function getHashColumnName(): string
+    {
+        return property_exists($this, 'recordHashColumn')
+            ? $this->recordHashColumn
+            : 'record_hash';
     }
 
     public function getExcludedHashColumns(): array
