@@ -73,7 +73,7 @@ The above command generates a migration file to add a hash column in the databas
 
 ### Genreate hash column for all models
 ```bash
-php artisan prevent-same-shit:generate-hash-column-columns hash_column_name
+php artisan prevent-same-shit:generate-hash-columns hash_column_name
 ```
 The above command generates migration files to add a hash column for each of the models in your project. The second arg is optional for the hash column name.
 
