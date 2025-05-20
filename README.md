@@ -81,13 +81,13 @@ The above command generates migration files to add a hash column for each of the
 ```bash
 php artisan prevent-same-shit:generate-hashes App\\Models\\YourModel hash_column_name
 ```
-The above command generates hash values for a specified model. The second arg is optional for the hash column name.
+The above command generates hash values for a specified model. The second arg is only required for those who customized the hash column name.
 
 ### Genreate hash values for all models
 ```bash
 php artisan prevent-same-shit:generate-hashes-all hash_column_name
 ```
-The above command generates hash values for all of the models. The second arg is optional for the hash column name.
+The above command generates hash values for all of the models and don't need to provide model name. And again, the hash_column_name arg is only required for those who customized the hash column name.
 
 ## Contributing
 You can visit https://github.com/major-phyo-san/prevent-same-shit and contribute the project.
