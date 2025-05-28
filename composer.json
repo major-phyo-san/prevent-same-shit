@@ -3,7 +3,7 @@
     "description": "\"Prevent duplicate database records by calculating SHA256 hash for each database entry\"",
     "type": "library",
     "license": "MIT",
-    "version": "0.0.19",
+    "version": "0.0.20",
     "keywords": ["laravel", "hash", "duplicate-check", "row-hash", "package"],
     "homepage": "https://github.com/major-phyo-san/prevent-same-shit",
     "autoload": {
