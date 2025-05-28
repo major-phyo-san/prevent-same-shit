@@ -5,7 +5,7 @@
     "license": "MIT",
     "version": "0.0.19",
     "keywords": ["laravel", "hash", "duplicate-check", "row-hash", "package"],
-    "homepage": "https://github.com/major-phyo-san/prevent-same-shit"
+    "homepage": "https://github.com/major-phyo-san/prevent-same-shit",
     "autoload": {
         "psr-4": {
             "MajorPhyoSan\\PreventSameShit\\": "src/"
